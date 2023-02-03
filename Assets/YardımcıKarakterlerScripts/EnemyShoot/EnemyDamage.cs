@@ -16,8 +16,7 @@ public class EnemyDamage : MonoBehaviour
 
     private void Start()
     {
-        enemy.OnEnemyDamaged += OnHealthChanged;
-        
+        enemy.OnEnemyDamaged += OnHealthChanged;       
     }
 
     void OnHealthChanged(float currentHealth)
