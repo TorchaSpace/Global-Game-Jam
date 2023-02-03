@@ -5,4 +5,11 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     
+    
+    public void Damage(float damageAmount)
+    {
+        
+    }
+    
+    
 }
