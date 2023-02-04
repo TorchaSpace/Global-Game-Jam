@@ -55,32 +55,23 @@ public class Music : MonoBehaviour
     {
         _audioSource.Stop();
         StopCoroutine(Timer());
-        if (_musicType == musicType.combat)
+
+        switch (_musicType)
         {
-            chosenMusics = combatMusics;
-        }
-        else if (_musicType == musicType.mainMenu)   // switch case
-        {
-            chosenMusics = mainMenuMusics;
-        }
-        else if (_musicType == musicType.credits)
-        {
-            chosenMusics = creditsMusics;
+            case musicType.combat:
+                chosenMusics = combatMusics;
+                break;
+            case musicType.mainMenu:
+                chosenMusics = mainMenuMusics;
+                break;
+            case musicType.credits:
+                chosenMusics = creditsMusics;
+                break;
         }
 
         StartCoroutine(Timer());
     }
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _audioSource.Stop();                            // Deneme yeri
-            StopCoroutine(Timer());
-            StartCoroutine(Timer());
-        }
-    }
     IEnumerator Timer()
     {
         while (true)
@@ -91,4 +82,14 @@ public class Music : MonoBehaviour
 
         }
     }
+
+    /*private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _audioSource.Stop();                            // Deneme yeri
+            StopCoroutine(Timer());
+            StartCoroutine(Timer());
+        }
+    }*/
 }
