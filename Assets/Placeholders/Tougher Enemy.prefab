@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 661402015215250603}
   - component: {fileID: 922861832293115108}
   - component: {fileID: 972545326741081442}
+  - component: {fileID: -1919010407630898351}
   m_Layer: 0
   m_Name: Tougher Enemy
   m_TagString: Untagged
@@ -98,3 +99,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &-1919010407630898351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768805063963451385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb90f66a12075d4e8b8fc786fe252a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Targets: []
+  _target: {fileID: 0}
+  targetCheckCooldown: 0.1
+  minTargetingDistance: 1
