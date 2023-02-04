@@ -5,15 +5,20 @@ using System;
 
 public class TreeController : MonoBehaviour
 {
-        [SerializeField] int EnemyCount;
+        [SerializeField] private int enemyCount;
+        private int _currentEnemyCount = 0;
         public Action OnLevelLost;
-        private void OnTriggerEnter(Collider collider)
+        private void OnTriggerEnter(Collider other)
         {
-            EnemyCount++;
-           
-            if (EnemyCount>=30)
+            if (other.GetComponent<EnemyBehaviour>())
             {
-                OnLevelLost?.Invoke();
+                _currentEnemyCount++;
+                Destroy(other.gameObject);
+                if (_currentEnemyCount>=enemyCount)
+                {
+                    OnLevelLost?.Invoke();
+                }
             }
-         }
+            
+        }
 }

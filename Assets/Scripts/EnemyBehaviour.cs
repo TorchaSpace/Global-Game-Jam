@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -8,26 +10,44 @@ using UnityEngine.PlayerLoop;
 public class EnemyBehaviour : MonoBehaviour
 {
 
-    [SerializeField] private List<GameObject> Targets = new List<GameObject>();
+    [SerializeField] private List<GameObject> targets = new List<GameObject>();
     [SerializeField] private GameObject _target;
     [SerializeField] private float targetCheckCooldown;
     [SerializeField] private float minTargetingDistance;
-    private float attackingDistance = 2;
+    [SerializeField] private float attackingDistance = 2;
     private GameObject _currentTarget;
     private Vector3 _direction;
-    private float _movementSpeed = 5;
+    [SerializeField] private float _movementSpeed = 5;
+
+    [SerializeField] private Animator animator;
 
     private GameObject _tree;
-    public void Damage(float damageAmount)
-    {
+    private bool _isWalking;
+    private bool _isAttacking;
+    [SerializeField] private float damage;
 
+    [SerializeField] private float health = 10;
+    public void Damage(float x)
+    {
+        float damagedHealth = health - x;
+        if (damagedHealth <= 0)
+        {
+            Die();
+            return;
+        }
+        health = damagedHealth;
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 
     private void Start()
     {
         _tree = GameObject.FindGameObjectWithTag("Tree");
-        Targets.Add(GameObject.FindGameObjectWithTag("Player"));
-        Targets.Add(_tree);
+        targets.Add(GameObject.FindGameObjectWithTag("Player"));
+        targets.Add(_tree);
         StartCoroutine(Timer());
     }
     private void Update()
@@ -37,47 +57,111 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void GetTarget(GameObject target)
     {
-        Targets.Add(target);
+        targets.Add(target);
     }
 
     private void SetTarget()
     {
+        
         float distance = Mathf.Infinity;
         float newDistance;
-        foreach (GameObject target in Targets)
+
+        for (int i = targets.Count-1; i >= 0; i--)
         {
-            newDistance = Vector3.Distance(target.transform.position, transform.position);
+            if (!targets[i])
             {
-                if (newDistance < distance)
-                {
-                    distance = newDistance;
-                    _currentTarget = target;
-                }
+                targets.RemoveAt(i);
+                continue;
+            }
+            newDistance = Vector3.Distance(targets[i].transform.position, transform.position);
+            if (newDistance < distance)
+            {
+                distance = newDistance;
+                _currentTarget = targets[i];
             }
         }
-            _target = _currentTarget;
+        
+        _target = _currentTarget;
+        _isWalking = false;
     }
 
     private void StateChecker()
     {
-        if (Vector3.Distance(transform.position, _target.transform.position) <= attackingDistance)
+        if (!_target)
         {
-            AttackState();
+            SetTarget();
+        }
+        else
+        {
+            Vector3 a = _target.transform.position;
+            a.y = 0;
+            transform.LookAt(a);
+        }
+        Vector3 tar = _target.transform.position;
+        tar.y = 0;
+        if (Vector3.Distance(transform.position, tar) <= attackingDistance)
+        {
+            Debug.Log("deneme1" + Vector3.Distance(transform.position, tar));
+            if (!_isAttacking)
+            {
+                Debug.Log("deneme2");
+                AttackState();
+            }
+            
         }
         else 
         {
-            WalkState();
+            if (!_isWalking)
+            {
+                WalkState();
+                Debug.Log("deneme4");
+            }
+            
         }
+        
     }
+
+    private Vector3 pos;
     private void WalkState()
     {
-        _direction = _target.transform.position - transform.position;
-        _direction.Normalize();
-        transform.Translate(_direction * _movementSpeed * Time.deltaTime);
+        animator.SetBool("walk",true);
+        transform.DOKill();
+        Vector3 tar = _target.transform.position;
+        tar.y = 0;
+        pos = tar;
+        Debug.Log(_target + gameObject.name);
+        transform.DOLookAt(tar, 0.1f);
+        transform.DOMove(tar,0.5f*Vector3.Distance(transform.position,tar)).OnUpdate(() =>
+        {
+            if (!_target || pos != tar)
+            {
+                SetTarget();
+                _isWalking = false;
+                _isAttacking = false;
+            }
+            
+        });
+        _isWalking = true;
+        _isAttacking = false;
     }
-    private void AttackState() 
+    private void AttackState()
     {
-    
+        transform.DOKill();
+        animator.SetBool("walk",false);
+        animator.SetTrigger("attack");
+        _isWalking = false;
+        _isAttacking = true;
+    }
+
+    public void AttackFinished()
+    {
+        _isAttacking = false;
+        NPC n = _target.GetComponent<NPC>();
+        if (_target && n)
+        {
+            n.Damage(damage);
+        }
+        
     }
 
 
@@ -92,9 +176,5 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
 
-
-
-
-
-
+  
 }

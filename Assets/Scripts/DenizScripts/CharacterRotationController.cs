@@ -18,10 +18,10 @@ public class CharacterRotationController : MonoBehaviour
 
     private void RotateCharacter(Vector3 obj)
     {
-        Vector3 lerpedPos = Vector3.Lerp(transform.forward,obj,rotSpeed);
-        lerpedPos.y = 0;
+        if (Vector3.Distance(transform.position,obj) < 10) return;
+        obj.y = 0;
         transform.DOKill();
-        transform.DOLookAt(lerpedPos, 0.1f);
+        transform.DOLookAt(obj, rotSpeed).SetUpdate(false);
     }
     
     
