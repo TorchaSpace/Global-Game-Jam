@@ -12,6 +12,7 @@ public class Damager : MonoBehaviour
         if (enemyBehaviour)
         {
             enemyBehaviour.Damage(damageAmount);
+            Destroy(gameObject);    
         }
         
         

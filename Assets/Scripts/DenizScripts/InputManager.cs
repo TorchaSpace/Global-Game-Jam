@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour,InputData
 {
     
     public Action<Vector3> OnKeyboardInputGiven { get; set; }
+    public Action OnKeyboardInputReleased { get; set; }
     public Action<Vector3> OnMouseMove { get; set; }
     public Action OnMouseClick { get; set; }
     public Action OnMouseReleased { get; set; }
@@ -22,6 +23,10 @@ public class InputManager : MonoBehaviour,InputData
         if (horizontal != 0 || vertical != 0)
         {
             OnKeyboardInputGiven?.Invoke(new Vector3(horizontal,0,vertical));
+        }
+        else
+        {
+            OnKeyboardInputReleased?.Invoke();
         }
 
 
@@ -51,7 +56,7 @@ public class InputManager : MonoBehaviour,InputData
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray,out hit))
+        if (Physics.Raycast(ray,out hit,100,LayerMask.GetMask("terr")))
         {
             return hit.point;
         }

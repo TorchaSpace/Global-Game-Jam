@@ -1,30 +1,52 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPC : MonoBehaviour
 {
+    [SerializeField] private float maxHealth;
+    private float _currentHealth;
+    [SerializeField] private Slider healthSlider;
+    
+    private Vector3 _toGoPos;
 
-    void Update()
+    private void Awake()
     {
-        //if(Bir şey olacak)
-        //{
-        TakeDamage(10);
-        //}
-
-        //if(Bir şey olacak)
-        //{
-        GetHeal(5);
-        //}
+        _currentHealth = maxHealth;
     }
 
-    private  void TakeDamage(int damage)
+    private void OnEnable()
     {
-        GameManager.gameManager.playerHealth.Damage(damage);
+        NPCManager.instance.AddArcher(this);
+        _toGoPos = NPCManager.instance.GetRandomPos();
     }
 
-    private void GetHeal(int regen)
+    private void OnDisable()
     {
-        GameManager.gameManager.playerHealth.Regen(regen);
+        NPCManager.instance.RemoveArcher(this);
     }
+
+
+
+    public void Damage(float x)
+    {
+        float damagedHealth = _currentHealth - x;
+        if (damagedHealth <= 0)
+        {
+            Die();
+            return;
+        }
+
+        _currentHealth = damagedHealth;
+        healthSlider.value = _currentHealth;
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
+    
+    
 }
