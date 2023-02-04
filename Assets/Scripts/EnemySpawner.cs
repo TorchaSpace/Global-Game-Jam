@@ -20,7 +20,6 @@ public class EnemySpawner : MonoBehaviour
     {
         StartCoroutine(Timer());
     }
-
     private void SpawnController()
     {
         SetSpawnPosition();
@@ -50,5 +49,4 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnTime);
         }
     }
-
 }
