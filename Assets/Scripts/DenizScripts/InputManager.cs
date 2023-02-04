@@ -16,8 +16,8 @@ public class InputManager : MonoBehaviour,InputData
 
     private void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
         if (horizontal != 0 || vertical != 0)
         {
