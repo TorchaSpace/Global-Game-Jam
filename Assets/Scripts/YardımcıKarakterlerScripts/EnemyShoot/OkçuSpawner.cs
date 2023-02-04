@@ -8,13 +8,14 @@ public class OkçuSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     public int okcuCount = 0;
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Player"))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             SpawnRandomSpot();
         }
     }
+
     public void SpawnRandomSpot()
     {
         if(okcuCount <= 10)
