@@ -430,6 +430,7 @@ GameObject:
   - component: {fileID: 6971452967105316386}
   - component: {fileID: 8161117678531153888}
   - component: {fileID: 793564776061542510}
+  - component: {fileID: 7177754690626603076}
   m_Layer: 0
   m_Name: Cube.006
   m_TagString: Untagged
@@ -517,6 +518,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0939332, y: 0.08447626, z: 0.15042338}
   m_Center: {x: 0.0042893947, y: 0.00067883526, z: 0.077366225}
+--- !u!114 &7177754690626603076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773423649008999641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848dacde9792e95459c8c2b13a5d0681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3191940331931856954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,10 +1537,11 @@ MonoBehaviour:
   _target: {fileID: 0}
   targetCheckCooldown: 0.2
   minTargetingDistance: 5
-  attackingDistance: 4
+  attackingDistance: 2.5
   _movementSpeed: 5
   animator: {fileID: 8219226813442345627}
   damage: 1
+  health: 10
 --- !u!1 &8263196767497524179
 GameObject:
   m_ObjectHideFlags: 0

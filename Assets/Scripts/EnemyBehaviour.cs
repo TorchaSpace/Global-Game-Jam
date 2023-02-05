@@ -101,10 +101,8 @@ public class EnemyBehaviour : MonoBehaviour
         tar.y = 0;
         if (Vector3.Distance(transform.position, tar) <= attackingDistance)
         {
-            Debug.Log("deneme1" + Vector3.Distance(transform.position, tar));
             if (!_isAttacking)
             {
-                Debug.Log("deneme2");
                 AttackState();
             }
             
@@ -114,7 +112,6 @@ public class EnemyBehaviour : MonoBehaviour
             if (!_isWalking)
             {
                 WalkState();
-                Debug.Log("deneme4");
             }
             
         }

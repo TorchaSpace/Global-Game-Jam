@@ -15,7 +15,7 @@ public class CharacterHealthSystem : MonoBehaviour
 
     private void Awake()
     {
-        _currentHealth = maxHealth;
+        _currentHealth = 0;
     }
 
     public void Damage(float x)
@@ -29,6 +29,7 @@ public class CharacterHealthSystem : MonoBehaviour
         }
 
         _currentHealth = damagedHealth;
+        healthBar.value = _currentHealth;
         OnHealthChanged?.Invoke(_currentHealth);
     }
     
