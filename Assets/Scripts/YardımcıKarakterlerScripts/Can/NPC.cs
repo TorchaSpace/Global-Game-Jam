@@ -46,6 +46,7 @@ public class NPC : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+        NPCManager.npcCount--;
     }
     
     

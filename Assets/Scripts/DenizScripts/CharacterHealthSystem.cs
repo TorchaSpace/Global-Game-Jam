@@ -23,7 +23,7 @@ public class CharacterHealthSystem : MonoBehaviour
         if (damagedHealth <= 0)
         {
             OnPlayerDied?.Invoke();
-            //Oyunu kaybet
+            RestartGame.restartGame.Restart();
             return;
         }
 

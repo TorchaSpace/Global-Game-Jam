@@ -17,6 +17,8 @@ public class NPCManager : MonoBehaviour
 
     [SerializeField] private NPC npcPrefab;
     [SerializeField] private float timeBetweenInstantiate = 2;
+
+    public static int npcCount;
     
     private void Awake()
     {
@@ -31,15 +33,19 @@ public class NPCManager : MonoBehaviour
 
     private IEnumerator CreateNPC()
     {
-        while (true)
+        while (npcCount < 10)
         {
-            Vector3 a = new Vector3(Random.Range(0f, 1f) * randomizers[Random.Range(0, randomizers.Length)],
+            if(npcCount <= 10)
+            {
+                Vector3 a = new Vector3(Random.Range(0f, 1f) * randomizers[Random.Range(0, randomizers.Length)],
                                 1.8f, Random.Range(0f, 1f) * randomizers[Random.Range(0, randomizers.Length)])
                             .normalized *
                         Random.Range(minSpawnRadius, maxSpawnRadius);
-            a.y = 1.8f;
-            Instantiate(npcPrefab,a , Quaternion.identity);
-            yield return new WaitForSeconds(timeBetweenInstantiate);
+                a.y = 1.8f;
+                Instantiate(npcPrefab, a, Quaternion.identity);
+                yield return new WaitForSeconds(timeBetweenInstantiate);
+                npcCount++;
+            }
         }
     }
     

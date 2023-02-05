@@ -35,10 +35,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
-    public void RestartGame()
-    {
-        SceneManager.LoadScene("TreeControllerScene");
-    }
+
     public void MainMenu ()
     {
         SceneManager.LoadScene("Main Menu");
