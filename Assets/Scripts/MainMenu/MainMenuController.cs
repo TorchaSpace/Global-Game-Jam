@@ -10,7 +10,7 @@ public class MainMenuController : MonoBehaviour
     public void StartButton()
     {
         Destroy(song);
-        SceneManager.LoadSceneAsync("");
+        SceneManager.LoadSceneAsync("FinalGameScene");
     }
   
 
