@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharacterHealthSystem : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class CharacterHealthSystem : MonoBehaviour
         if (damagedHealth >= 100)
         {
             OnPlayerDied?.Invoke();
-            RestartGame.restartGame.Restart();
+            SceneManager.LoadScene("DeathScreen");
             return;
         }
 

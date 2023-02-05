@@ -5,20 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class RestartGame : MonoBehaviour
 {
-    public GameObject restartScreen;
-
-    public static RestartGame restartGame;
-
-    private void Start()
-    {
-        restartGame = this;
-    }
-
-    public void Restart()
-    {
-        restartScreen.SetActive(true);
-        Time.timeScale = 0;
-    }
 
     public void RestartButton()
     {

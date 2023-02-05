@@ -10,6 +10,7 @@ public class MusicController : MonoBehaviour
     private void Start()
     {
         _music = GetComponentInChildren<Music>();
+        ChangeMusic(Music.musicType.combat);
     }
 
     public void ChangeMusic(Music.musicType type) 

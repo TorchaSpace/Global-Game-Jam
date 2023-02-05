@@ -8,7 +8,7 @@ public class CharacterWeaponController : MonoBehaviour
     [SerializeField] private InputManager inputManager;
     [SerializeField] private WeaponHolder weaponHolder;
     [SerializeField] private Animator animator;
-    [SerializeField] private float timeBetweenAttacks = 0.5f;
+    [SerializeField] private float timeBetweenAttacks = 0.3f;
     private float timePassed = 1000;
 
     [SerializeField] private Transform handPos;
@@ -37,7 +37,15 @@ public class CharacterWeaponController : MonoBehaviour
 
     private void Fire()
     {
-        if(timePassed < timeBetweenAttacks) return;
+        if (timePassed < timeBetweenAttacks)
+        {
+            Damager.damageAmount = 0;
+            return;
+        }
+        Damager.damageAmount = 5;
+
+
+
         animator.SetTrigger("attack");
         weaponHolder.Fire(transform.forward);
         timePassed = 0;
